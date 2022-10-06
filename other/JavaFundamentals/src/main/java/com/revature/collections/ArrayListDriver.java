@@ -2,7 +2,7 @@ package com.revature.collections;
 
 import java.util.*;
 
-public class Exercises {
+public class ArrayListDriver {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -54,6 +54,5 @@ public class Exercises {
         for (String i : colors){
             System.out.println(i);
         }
-
     }
 }
