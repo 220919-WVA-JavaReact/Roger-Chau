@@ -52,7 +52,7 @@ public class Status {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Status status1 = (Status) o;
-        return request_id == status1.request_id && manager_username.equals(status1.manager_username) && status.equals(status1.status);
+        return request_id == status1.request_id && Objects.equals(manager_username, status1.manager_username) && status.equals(status1.status);
     }
 
     @Override

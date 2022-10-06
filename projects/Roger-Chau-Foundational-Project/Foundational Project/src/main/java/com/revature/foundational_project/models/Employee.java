@@ -5,12 +5,16 @@ import java.util.Objects;
 public class Employee {
 
     private int employee_id;
-    private String employee_username;
+    private String first_name;
+    private String last_name;
+    private String username;
     private String password;
 
-    public Employee(int employee_id, String employee_username, String password) {
+    public Employee(int employee_id, String first_name, String last_name, String username, String password) {
         this.employee_id = employee_id;
-        this.employee_username = employee_username;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.username = username;
         this.password = password;
     }
 
@@ -22,12 +26,28 @@ public class Employee {
         this.employee_id = employee_id;
     }
 
-    public String getEmployee_username() {
-        return employee_username;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setEmployee_username(String employee_username) {
-        this.employee_username = employee_username;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -42,7 +62,9 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "employee_id=" + employee_id +
-                ", employee_username='" + employee_username + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
@@ -52,11 +74,11 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return employee_id == employee.employee_id && employee_username.equals(employee.employee_username) && password.equals(employee.password);
+        return employee_id == employee.employee_id && first_name.equals(employee.first_name) && last_name.equals(employee.last_name) && username.equals(employee.username) && password.equals(employee.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employee_id, employee_username, password);
+        return Objects.hash(employee_id, first_name, last_name, username, password);
     }
 }

@@ -1,2 +1,3 @@
-package com.revature.foundational_project;public class App {
+package com.revature.foundational_project;
+public class App {
 }

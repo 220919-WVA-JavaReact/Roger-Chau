@@ -1,2 +1,3 @@
-package com.revature.foundational_project.service;public class LoginService {
+package com.revature.foundational_project.service;
+public class LoginService {
 }
