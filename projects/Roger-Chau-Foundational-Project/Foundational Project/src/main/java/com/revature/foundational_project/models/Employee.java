@@ -18,6 +18,16 @@ public class Employee {
         this.password = password;
     }
 
+    public Employee(String first_name, String last_name, String username, String password) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.username = username;
+        this.password = password;
+    }
+
+    public Employee() {
+    }
+
     public int getEmployee_id() {
         return employee_id;
     }

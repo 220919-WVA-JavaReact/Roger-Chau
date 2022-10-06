@@ -15,6 +15,9 @@ public class Manager {
         this.password = password;
     }
 
+    public Manager() {
+    }
+
     public String getFirst_name() {
         return first_name;
     }

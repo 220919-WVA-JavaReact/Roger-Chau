@@ -4,34 +4,31 @@ import com.revature.foundational_project.models.Employee;
 import com.revature.foundational_project.util.ConnectionUtil;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO{
     @Override
-    public Employee getByID(int employee_id) {
+    public Employee getByUsername(String username) {
         Employee employ = new Employee();
 
         try (Connection conn = ConnectionUtil.getConnection()){
-            String sql = "SELECT * FROM employee WHERE employee_id = ?";
+            String sql = "SELECT * FROM employee WHERE username = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, employee_id);
+            stmt.setString(1, username);
 
             ResultSet rs;
 
             if ((rs = stmt.executeQuery()) != null){
-
                 rs.next();
 
                 int id = rs.getInt("employee_id");
                 String first = rs.getString("first_name");
                 String last = rs.getString("last_name");
-                String username = rs.getString("username");
+                String receivedUsername = rs.getString("username");
                 String password = rs.getString("password");
 
-                employ = new Employee(id,first,last,username,password);
+                employ = new Employee(id,first,last,receivedUsername,password);
             }
         } catch(SQLException e){
             e.printStackTrace();
@@ -40,7 +37,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
     }
 
     @Override
-    public Employee createEmployee(int employee_id, String first_name, String last_name, String username, String password) {
+    public Employee createEmployee(String first_name, String last_name, String username, String password) {
         Employee employ = new Employee();
 
         try(Connection conn = ConnectionUtil.getConnection()){
@@ -57,7 +54,6 @@ public class EmployeeDAOImpl implements EmployeeDAO{
             ResultSet rs;
 
             if ((rs = stmt.executeQuery()) != null){
-
                 rs.next();
 
                 int id = rs.getInt("employee_id");
@@ -70,38 +66,8 @@ public class EmployeeDAOImpl implements EmployeeDAO{
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Couldn't register user to the database");
+            System.out.println("Something went wrong! We couldn't register you to the database!");
         }
         return employ;
-    }
-
-    @Override
-    public List<Employee> getAllEmployees() {
-        Connection conn = ConnectionUtil.getConnection();
-
-        List<Employee> employees = new ArrayList<>();
-
-        try {
-            Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM employee";
-
-            ResultSet rs = stmt.executeQuery(sql);
-
-            while (rs.next()){
-
-                int id = rs.getInt("employee_id");
-                String first = rs.getString("first_name");
-                String last = rs.getString("last_name");
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-
-                Employee employ = new Employee(id, first, last, username, password);
-
-                employees.add(employ);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return employees;
     }
 }

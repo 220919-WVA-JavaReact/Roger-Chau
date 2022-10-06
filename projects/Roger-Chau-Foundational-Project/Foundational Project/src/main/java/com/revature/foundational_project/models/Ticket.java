@@ -9,6 +9,8 @@ public class Ticket {
     private int refund_amount;
     private String description;
 
+
+
     public Ticket(int request_id, int employee_id, int refund_amount, String description) {
         this.request_id = request_id;
         this.employee_id = employee_id;
@@ -16,10 +18,14 @@ public class Ticket {
         this.description = description;
     }
 
-    public Ticket(int request_id, int employee_id, int refund_amount) {
-        this.request_id = request_id;
+    public Ticket(int employee_id, int refund_amount, String description) {
         this.employee_id = employee_id;
         this.refund_amount = refund_amount;
+        this.description = description;
+    }
+
+    public Ticket() {
+
     }
 
     public int getRequest_id() {
@@ -69,7 +75,7 @@ public class Ticket {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ticket ticket = (Ticket) o;
-        return request_id == ticket.request_id && employee_id == ticket.employee_id && refund_amount == ticket.refund_amount && Objects.equals(description, ticket.description);
+        return request_id == ticket.request_id && employee_id == ticket.employee_id && refund_amount == ticket.refund_amount && description.equals(ticket.description);
     }
 
     @Override
