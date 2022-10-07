@@ -26,7 +26,7 @@ public class EmployeeService {
 
             return employ;
         } else{
-            System.out.println("Invalid username or password");
+            System.out.println("Invalid password");
             return null;
         }
     }
