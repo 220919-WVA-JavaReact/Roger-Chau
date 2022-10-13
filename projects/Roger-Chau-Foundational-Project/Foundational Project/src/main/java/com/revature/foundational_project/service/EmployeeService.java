@@ -21,8 +21,11 @@ public class EmployeeService {
 
         if(employ.getPassword().equals(password)){
             System.out.println("Login was successful");
+            System.out.println("---------------------------------------------------------------");
             System.out.println("Welcome " + employ.getFirst_name());
-            System.out.println("Here is your following info:\n" + employ);
+            System.out.println("---------------------------------------------------------------");
+            System.out.println("Here is your following info:\n" + "Employee ID: " + employ.getEmployee_id() + "\nName: " + employ.getFirst_name() + " " + employ.getLast_name() + "\nUsername: " + employ.getUsername());
+            System.out.println("---------------------------------------------------------------");
 
             return employ;
         } else{

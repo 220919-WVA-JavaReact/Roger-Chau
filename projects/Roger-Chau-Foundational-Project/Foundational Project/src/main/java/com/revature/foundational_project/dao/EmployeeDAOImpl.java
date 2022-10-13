@@ -31,6 +31,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
                 employ = new Employee(id,first,last,receivedUsername,password);
             }
         } catch(SQLException e){
+            System.out.println("Sorry! Something went wrong!");
             e.printStackTrace();
         }
         return employ;
@@ -65,8 +66,8 @@ public class EmployeeDAOImpl implements EmployeeDAO{
                 employ = new Employee(id, receivedFirst, receivedLast, receivedUsername, receivedPassword);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Something went wrong! We couldn't register you to the database!");
+//            e.printStackTrace();
+            System.out.println("Sorry that username already exists. Please try again!");
         }
         return employ;
     }

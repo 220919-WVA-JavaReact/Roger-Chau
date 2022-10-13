@@ -11,7 +11,6 @@ import java.util.List;
 public class TicketDAOImpl implements TicketDAO{
     @Override
     public boolean createTicket(Employee employee, int refund_amount, String description) {
-        Ticket ticket = new Ticket();
 
         try(Connection conn = ConnectionUtil.getConnection()){
             String sql = "INSERT INTO reimbursement (employee_id, refund_amount, description) VALUES (?,?,?)";
@@ -55,7 +54,6 @@ public class TicketDAOImpl implements TicketDAO{
     @Override
     public List<Ticket> getTicketByID(int employee_id) {
         Connection conn = ConnectionUtil.getConnection();
-
 
         List<Ticket> tickets = new ArrayList<>();
 

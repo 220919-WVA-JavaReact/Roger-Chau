@@ -8,10 +8,50 @@
     <artifactId>Foundational_Project</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+<!--    <packaging>war</packaging>-->
+
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.5.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.1</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                &lt;!&ndash; Similar to how we declare dependencies we need the project coordinates&ndash;&gt;-->
+<!--&lt;!&ndash;                <groupId>org.apache.tomcat.maven</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;                <artifactId>tomcat7-maven-plugin</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;                <version>2.2</version>&ndash;&gt;-->
+<!--                &lt;!&ndash; We need to provide some additional configuration for our plugin &ndash;&gt;-->
+<!--&lt;!&ndash;                <configuration>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <url>http://localhost:8080/manager/text</url>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <server>LocalTomcat</server>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <path>/foundational-project</path>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <update>true</update>&ndash;&gt;-->
+<!--&lt;!&ndash;                </configuration>&ndash;&gt;-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 
 </project>

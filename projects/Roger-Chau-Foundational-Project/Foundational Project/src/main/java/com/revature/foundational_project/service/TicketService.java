@@ -28,14 +28,12 @@ public class TicketService {
         }
     }
 
-    public void getTicketByID(){
-        System.out.println("Please provide your Employee ID");
-        int employee_id = Integer.parseInt(sc.nextLine());
+    public void getTicketByID(int employee_id){
 
         List<Ticket> ticketList = td.getTicketByID(employee_id);
 
         for(Ticket ticket: ticketList){
-            System.out.println(ticket);
+            System.out.println("Ticket ID: " + ticket.getRequest_id() + " | Employee ID: " + ticket.getEmployee_id() + " | Amount: $" + ticket.getRefund_amount() + " | Description: " + ticket.getDescription());
         }
 
     }
