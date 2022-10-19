@@ -41,19 +41,29 @@ public class EmployeeServlet extends HttpServlet {
         if (req.getParameter("action").equals("login")){
             Employee employ = mapper.readValue(req.getInputStream(), Employee.class);
             Employee empl = esp.login(employ.getUsername(), employ.getPassword());
-            if (empl == null){
+            String payload = mapper.writeValueAsString(empl);
+            if (payload.equals("null")){
                 resp.setStatus(400);
                 resp.getWriter().write("Invalid credentials!");
             } else{
                 session = req.getSession();
-                session.setAttribute("auth-user", empl);
+                session.setAttribute("auth-user", payload);
                 resp.setStatus(200);
                 resp.setContentType("application/json");
-                resp.getWriter().write(mapper.writeValueAsString(empl));
+                resp.getWriter().write(payload);
             }
         } else if (req.getParameter("action").equals("register")){
             Employee employ = mapper.readValue(req.getInputStream(), Employee.class);
-            Employee empl = esp.register(employ.getFirst_name(),)
+            Employee empl = esp.register(employ.getFirst_name(), employ.getLast_name(), employ.getUsername(), employ.getPassword());
+            String payload = mapper.writeValueAsString(empl);
+            if (payload.equals("null")){
+                resp.setStatus(400);
+                resp.getWriter().write("That username has already been taken!");
+            } else{
+
+                resp.setStatus(200);
+                resp.getWriter().write("You have successfully registered!");
+            }
         }
 
     }
@@ -65,6 +75,10 @@ public class EmployeeServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        HttpSession session = req.getSession(false);
+        if (session != null){
+            session.invalidate();
+            resp.getWriter().write("Logged Out");
+        }
     }
 }
