@@ -1,8 +1,11 @@
 package com.revature.foundational_project.util;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class ConnectionUtil {
     private static Connection conn = null;
@@ -18,21 +21,40 @@ public class ConnectionUtil {
                 return conn;
             }
         } catch (SQLException e){
-            e.printStackTrace();
+            System.out.println("Could not establish a connection to the database!");
             return null;
         }
 
-        String url = System.getenv("url");
-        String username = System.getenv("username");
-        String password = System.getenv("password");
+        String url = "";
+        String username = "";
+        String password = "";
+
+        Properties prop = new Properties();
 
         try {
+            prop.load(new FileReader("src/main/resources/application.properties"));
+            url = prop.getProperty("url");
+            username = prop.getProperty("username");
+            password = prop.getProperty("password");
+
             conn = DriverManager.getConnection(url, username, password);
             System.out.println("Established Connection to Database!");
+        } catch (IOException e) {
+            System.out.println("Property file not found!");
+            throw new RuntimeException(e);
         } catch (SQLException e) {
-            System.out.println("Could not establish connection");
-            e.printStackTrace();
+            System.out.println("Could not establish connection!");
+            throw new RuntimeException(e);
         }
         return conn;
+    }
+
+    static{
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Failed to load PostgreSQL driver");
+            throw new RuntimeException(e);
+        }
     }
 }

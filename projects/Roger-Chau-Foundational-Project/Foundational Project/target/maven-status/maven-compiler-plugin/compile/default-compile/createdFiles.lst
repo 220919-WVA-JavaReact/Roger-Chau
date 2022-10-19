@@ -5,8 +5,10 @@ com\revature\foundational_project\servlet\Sanity.class
 com\revature\foundational_project\util\ConnectionUtil.class
 com\revature\foundational_project\models\Manager.class
 com\revature\foundational_project\dao\TicketDAOImpl.class
+com\revature\foundational_project\servlet\EmployeeServlet.class
 com\revature\foundational_project\dao\ManagerDAO.class
 com\revature\foundational_project\service\TicketService.class
+com\revature\foundational_project\servlet\ManagerServlet.class
 com\revature\foundational_project\models\Status.class
 com\revature\foundational_project\App.class
 com\revature\foundational_project\models\Employee.class
@@ -14,4 +16,5 @@ com\revature\foundational_project\dao\ManagerDAOImpl.class
 com\revature\foundational_project\dao\TicketDAO.class
 com\revature\foundational_project\dao\EmployeeDAO.class
 com\revature\foundational_project\service\ManagerService.class
+com\revature\foundational_project\servlet\TicketServlet.class
 com\revature\Main.class
