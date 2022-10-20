@@ -40,7 +40,7 @@ public class EmployeeServlet extends HttpServlet {
                 resp.getWriter().write("Invalid credentials!");
             } else{
                 session = req.getSession();
-                session.setAttribute("auth-user", payload);
+                session.setAttribute("auth-user", empl);
                 resp.setStatus(200);
                 resp.setContentType("application/json");
                 resp.getWriter().write(payload);
