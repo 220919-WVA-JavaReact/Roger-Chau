@@ -20,18 +20,11 @@ import java.time.LocalDateTime;
 public class EmployeeServlet extends HttpServlet {
 
     ObjectMapper mapper = new ObjectMapper();
-    EmployeeDAO ed = new EmployeeDAOImpl();
     EmployeeServiceAPI esp = new EmployeeServiceAPI();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Employee receivedEmployee = new Employee();
-
-        String empPayload = mapper.writeValueAsString(receivedEmployee);
-
-        resp.setStatus(200);
-        resp.setContentType("application/json");
-        resp.getWriter().write(empPayload);
+        super.doGet(req, resp);
     }
 
     @Override
@@ -60,8 +53,7 @@ public class EmployeeServlet extends HttpServlet {
                 resp.setStatus(400);
                 resp.getWriter().write("That username has already been taken!");
             } else{
-
-                resp.setStatus(200);
+                resp.setStatus(201);
                 resp.getWriter().write("You have successfully registered!");
             }
         }
