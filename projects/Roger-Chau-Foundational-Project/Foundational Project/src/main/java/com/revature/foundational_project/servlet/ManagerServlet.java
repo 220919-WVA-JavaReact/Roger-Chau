@@ -36,7 +36,7 @@ public class ManagerServlet extends HttpServlet {
                 resp.getWriter().write("Invalid credentials!");
             } else{
                 session = req.getSession();
-                session.setAttribute("auth-user", payload);
+                session.setAttribute("auth-user", man);
                 resp.setStatus(200);
                 resp.setContentType("application/json");
                 resp.getWriter().write(payload);

@@ -9,4 +9,6 @@ public interface TicketDAO {
     boolean createTicket(Employee employee, int refund_amount, String description);
 
     List<Ticket> getTicketByID(int employee_id);
+
+    List<Ticket> getPending();
 }

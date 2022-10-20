@@ -79,4 +79,34 @@ public class TicketDAOImpl implements TicketDAO{
         }
         return tickets;
     }
+
+    @Override
+    public List<Ticket> getPending() {
+        Connection conn = ConnectionUtil.getConnection();
+
+        List<Ticket> tickets = new ArrayList<>();
+
+        try{
+            String sql = "SELECT * FROM reimbursement NATURAL JOIN pending WHERE status = 'pending'";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs;
+            if((rs = stmt.executeQuery()) != null) {
+
+                while (rs.next()) {
+                    int request_id = rs.getInt("request_id");
+                    int employee_id = rs.getInt("employee_id");
+                    int refund_amount = rs.getInt("refund_amount");
+                    String description = rs.getString("description");
+                    String manager_username = rs.getString("manager_username");
+                    String status = rs.getString("status");
+
+                    Ticket ticket = new Ticket(request_id, employee_id, refund_amount, description, status, manager_username);
+                    tickets.add(ticket);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return tickets;
+    }
 }

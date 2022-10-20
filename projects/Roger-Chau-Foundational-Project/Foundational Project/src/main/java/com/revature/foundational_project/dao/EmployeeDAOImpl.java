@@ -55,15 +55,15 @@ public class EmployeeDAOImpl implements EmployeeDAO{
             ResultSet rs;
 
             if ((rs = stmt.executeQuery()) != null){
-                rs.next();
+                if(rs.next()){
+                    int id = rs.getInt("employee_id");
+                    String receivedFirst = rs.getString("first_name");
+                    String receivedLast = rs.getString("last_name");
+                    String receivedUsername = rs.getString("username");
+                    String receivedPassword = rs.getString("password");
 
-                int id = rs.getInt("employee_id");
-                String receivedFirst = rs.getString("first_name");
-                String receivedLast = rs.getString("last_name");
-                String receivedUsername = rs.getString("username");
-                String receivedPassword = rs.getString("password");
-
-                employ = new Employee(id, receivedFirst, receivedLast, receivedUsername, receivedPassword);
+                    employ = new Employee(id, receivedFirst, receivedLast, receivedUsername, receivedPassword);
+                }
             }
         } catch (SQLException e) {
 //            e.printStackTrace();

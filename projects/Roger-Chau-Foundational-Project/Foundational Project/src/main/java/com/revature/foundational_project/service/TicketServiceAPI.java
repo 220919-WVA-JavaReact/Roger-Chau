@@ -23,4 +23,12 @@ public class TicketServiceAPI {
 
         return ticketList;
     }
+
+    public List<Ticket> getPending(){
+        List<Ticket> ticketList = td.getPending();
+        for(Ticket ticket: ticketList){
+            System.out.println("Ticket ID: " + ticket.getRequest_id() + " | Employee ID: " + ticket.getEmployee_id() + " | Amount: $" + ticket.getRefund_amount() + " | Description: " + ticket.getDescription() + "Status: " + ticket.getStatus() + "Assigned Manager: " + ticket.getManager_username());
+        }
+        return ticketList;
+    }
 }

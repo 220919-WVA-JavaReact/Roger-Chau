@@ -21,7 +21,7 @@ public class ManagerServiceAPI {
 
     public Manager register(String first_name, String last_name, String username, String password){
         Manager manage = md.createManager(first_name, last_name, username, password);
-        if (manage.getManager_username().equals("null")) {
+        if (manage.getManager_username() == null) {
             return null;
         } else {
             System.out.println("You have successfully registered!");

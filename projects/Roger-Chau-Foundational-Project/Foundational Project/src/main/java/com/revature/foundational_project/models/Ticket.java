@@ -9,7 +9,25 @@ public class Ticket {
     private int refund_amount;
     private String description;
 
+    private String status;
 
+    private String manager_username;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getManager_username() {
+        return manager_username;
+    }
+
+    public void setManager_username(String manager_username) {
+        this.manager_username = manager_username;
+    }
 
     public Ticket(int request_id, int employee_id, int refund_amount, String description) {
         this.request_id = request_id;
@@ -26,6 +44,15 @@ public class Ticket {
 
     public Ticket() {
 
+    }
+
+    public Ticket(int request_id, int employee_id, int refund_amount, String description, String status, String manager_username) {
+        this.request_id = request_id;
+        this.employee_id = employee_id;
+        this.refund_amount = refund_amount;
+        this.description = description;
+        this.status = status;
+        this.manager_username = manager_username;
     }
 
     public int getRequest_id() {
