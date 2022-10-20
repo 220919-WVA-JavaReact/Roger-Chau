@@ -10,7 +10,7 @@ public class ManagerServiceAPI {
 
     public Manager login(String username, String password){
         Manager manage = md.getByUsername(username);
-        if (manage.getPassword().equals(password)){
+        if (password.equals(manage.getPassword())){
             System.out.println("Welcome " + manage.getFirst_name());
             return manage;
         } else {

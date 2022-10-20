@@ -85,12 +85,17 @@ public class TicketServlet extends HttpServlet {
         } else{
             Employee loggedInEmployee = (Employee) session.getAttribute("auth-user");
             Ticket ticket = mapper.readValue(req.getInputStream(), Ticket.class);
-            resp.setStatus(201);
-            boolean payload = tsp.createTicket(loggedInEmployee, ticket.getRefund_amount(), ticket.getDescription());
-            if (payload){
-                resp.getWriter().write("Ticket has been successfully created");
+            if (ticket.getDescription().trim().equals("") || ticket.getRefund_amount() <= 0) {
+                resp.setStatus(400);
+                resp.getWriter().write("Description and amount cannot be empty");
             } else{
-                resp.getWriter().write("Failed to submit ticket");
+                resp.setStatus(201);
+                boolean payload = tsp.createTicket(loggedInEmployee, ticket.getRefund_amount(), ticket.getDescription());
+                if (payload) {
+                    resp.getWriter().write("Ticket has been successfully created");
+                } else {
+                    resp.getWriter().write("Failed to submit ticket");
+                }
             }
         }
     }
@@ -103,20 +108,25 @@ public class TicketServlet extends HttpServlet {
             resp.setContentType("application/json");
             resp.getWriter().write("Please login as a manager to approve or deny tickets");
         } else{
-            Manager loggedInManager = (Manager) session.getAttribute("auth-user");
+            if (session.getAttribute("auth-user").getClass().equals(Manager.class)) {
+                Manager loggedInManager = (Manager) session.getAttribute("auth-user");
 
-            Ticket ticket = mapper.readValue(req.getInputStream(), Ticket.class);
-            resp.setStatus(201);
-            Ticket getTicket = tsp.getTicket(ticket.getRequest_id());
-            if (getTicket.getStatus().equals("pending")) {
-                Ticket updatedTicket = tsp.updateTicket(ticket.getRequest_id(), loggedInManager.getManager_username(), ticket.getStatus());
-                String payload = mapper.writeValueAsString(updatedTicket);
-                resp.setStatus(200);
-                resp.getWriter().write("Ticket updated successfully");
-                resp.getWriter().write(payload);
+                Ticket ticket = mapper.readValue(req.getInputStream(), Ticket.class);
+                resp.setStatus(201);
+                Ticket getTicket = tsp.getTicket(ticket.getRequest_id());
+                if (getTicket.getStatus().equals("pending")) {
+                    Ticket updatedTicket = tsp.updateTicket(ticket.getRequest_id(), loggedInManager.getManager_username(), ticket.getStatus());
+                    String payload = mapper.writeValueAsString(updatedTicket);
+                    resp.setStatus(200);
+                    resp.getWriter().write("Ticket updated successfully");
+                    resp.getWriter().write(payload);
+                } else {
+                    resp.getWriter().write("You cannot update a previously updated ticket");
+                    resp.setStatus(400);
+                }
             } else{
-                resp.getWriter().write("You cannot update a previously updated ticket");
-                resp.setStatus(400);
+                resp.getWriter().write("Employees cannot approve or deny requests");
+                resp.setStatus(403);
             }
         }
     }
