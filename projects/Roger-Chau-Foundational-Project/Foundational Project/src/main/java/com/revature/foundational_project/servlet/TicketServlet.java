@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.foundational_project.models.Employee;
 import com.revature.foundational_project.models.Manager;
 import com.revature.foundational_project.models.Ticket;
-import com.revature.foundational_project.service.EmployeeServiceAPI;
-import com.revature.foundational_project.service.ManagerServiceAPI;
 import com.revature.foundational_project.service.TicketServiceAPI;
 
 import javax.servlet.ServletException;
@@ -40,8 +38,11 @@ public class TicketServlet extends HttpServlet {
                         resp.getWriter().write("\n");
                         for (Ticket ticket : tickets) {
                             resp.getWriter().write("Ticket ID: " + ticket.getRequest_id() + " " + " | " + " ");
+                            resp.getWriter().write("Employee ID: " + ticket.getEmployee_id() + " " + " | " + " ");
                             resp.getWriter().write("Refund Amount: " + ticket.getRefund_amount() + " " + " | " + " ");
-                            resp.getWriter().write("Description: " + ticket.getDescription());
+                            resp.getWriter().write("Description: " + ticket.getDescription() + " " + " | " + " ");
+                            resp.getWriter().write("Status: " + ticket.getStatus() + " " + " | " + " ");
+                            resp.getWriter().write("Manager assigned: " + ticket.getManager_username());
                             resp.getWriter().write("\n");
                         }
                     }
@@ -81,7 +82,7 @@ public class TicketServlet extends HttpServlet {
             resp.setStatus(400);
             resp.setContentType("application/json");
             resp.getWriter().write("Please login to submit a ticket");
-        } else {
+        } else{
             Employee loggedInEmployee = (Employee) session.getAttribute("auth-user");
             Ticket ticket = mapper.readValue(req.getInputStream(), Ticket.class);
             resp.setStatus(201);
@@ -96,11 +97,27 @@ public class TicketServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
-    }
+        HttpSession session = req.getSession(false);
+        if (session == null) {
+            resp.setStatus(400);
+            resp.setContentType("application/json");
+            resp.getWriter().write("Please login as a manager to approve or deny tickets");
+        } else{
+            Manager loggedInManager = (Manager) session.getAttribute("auth-user");
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+            Ticket ticket = mapper.readValue(req.getInputStream(), Ticket.class);
+            resp.setStatus(201);
+            Ticket getTicket = tsp.getTicket(ticket.getRequest_id());
+            if (getTicket.getStatus().equals("pending")) {
+                Ticket updatedTicket = tsp.updateTicket(ticket.getRequest_id(), loggedInManager.getManager_username(), ticket.getStatus());
+                String payload = mapper.writeValueAsString(updatedTicket);
+                resp.setStatus(200);
+                resp.getWriter().write("Ticket updated successfully");
+                resp.getWriter().write(payload);
+            } else{
+                resp.getWriter().write("You cannot update a previously updated ticket");
+                resp.setStatus(400);
+            }
+        }
     }
 }

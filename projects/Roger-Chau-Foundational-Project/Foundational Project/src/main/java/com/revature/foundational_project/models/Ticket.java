@@ -55,6 +55,12 @@ public class Ticket {
         this.manager_username = manager_username;
     }
 
+    public Ticket(int request_id, String manager_username, String status) {
+        this.request_id = request_id;
+        this.manager_username = manager_username;
+        this.status = status;
+    }
+
     public int getRequest_id() {
         return request_id;
     }
