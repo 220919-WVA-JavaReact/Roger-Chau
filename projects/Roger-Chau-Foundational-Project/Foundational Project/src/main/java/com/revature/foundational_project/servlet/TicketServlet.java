@@ -26,7 +26,7 @@ public class TicketServlet extends HttpServlet {
         if (session == null){
             resp.setStatus(400);
             resp.setContentType("application/json");
-            resp.getWriter().write("Please login to view your tickets!");
+            resp.getWriter().write("Please login to view tickets!");
         } else {
             if (session.getAttribute("auth-user").getClass().equals(Employee.class)) {
                 Employee loggedInEmployee = (Employee) session.getAttribute("auth-user");
@@ -68,7 +68,7 @@ public class TicketServlet extends HttpServlet {
                         }
                     }
                 } else if (req.getParameter("action").equals("get-my-tickets")){
-                    resp.getWriter().write("Dummy you don't have tickets");
+                    resp.getWriter().write("Manager's don't need to submit tickets!");
                     resp.setStatus(400);
                 }
             }
